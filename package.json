@@ -1,0 +1,20 @@
+{
+  "name": "movie-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon start"
+  },
+  "author": "samridh harshit",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.2",
+    "path": "^0.12.7"
+  }
+}
