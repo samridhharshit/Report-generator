@@ -7,10 +7,13 @@ html,body {
 
 div.title {
     width: 100%;
+    background-color: #FFC312;
+    opacity: 0.95;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 div.title h2 {
-    border: 2px solid #000;
     width: max-content;
     margin: 20px auto auto;
     background: -webkit-linear-gradient(left, #000, #e1ad01);

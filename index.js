@@ -5,6 +5,7 @@ const port = 8000;
 
 const studentroutes = require('./studentloginroutes');
 const hodroutes = require('./hodloginroutes.js');
+const wardenroutes = require('./wardenloginroutes');
 
 app.use(MethodOverRide("_method"));
 
@@ -70,10 +71,14 @@ app.get('/studentForm', (req,res)=> {
 });
 
 //rendering all the applications using studentId from the parameters
-app.get('/studentForm/:studentId', (req, res) => {
+app.get('/studentForm/status/:studentId', (req, res) => {
     const studentId = req.params.studentId;
     connection.query(`select * from outpass where studentId = ?`, [studentId], (err, application, field) => {
-        console.log(application);
+        // console.log(application[0].status_by_hod);
+        // console.log(application[0].status_by_chiefWarden);
+        // if (application[0].status_by_hod === application[0].status_by_chiefWarden) {
+        //     connection.query(`update outpass set status_at_initiater = 'Approved'  where applicationId`)
+        // }
         res.render('status', { application });
     });
 
@@ -133,25 +138,71 @@ app.get('/hod/requests', (req,res)=> {
     const hodId = hodroutes.collegeId;
     // console.log(hodroutes.collegeId);
     // console.log(`select * from outpass where hodId = 2 and status != 'Reject'`,[hodId]);
-    connection.query(`select * from outpass where hodId = ? and status not like 'Reject%'`,[hodId], (err, application, fields) => {
+    connection.query(`select * from outpass where hodId = ? and status_by_hod like 'In Progress'`,[hodId], (err, application, fields) => {
         if(err) throw err;
         // console.log(application[0]);
         res.render('requestsToHod', {application});
     });
 });
 
+
+
 //handling removal or approval of outPasses
-app.put("/hod/:applicationId/requests", (req,res)=> {
+app.put("/hod/status/:applicationId/requests", (req,res)=> {
     // const hodId = hodroutes.collegeId;
     let appId = JSON.parse(req.params.applicationId);
-    // console.log(req.params.applicationId);
-    // const status = "Reject";
-    // console.log(`update outpass set status = ? where applicationId = ?`,[status, appId]);
-    connection.query(`update outpass set status = 'Rejected' where applicationId = ?`,[appId], (err, application, fields) => {
+    let status = req.body.status;
+    // console.log(req.body.status);
+    if (status === 'Rejected') {
+        connection.query(`update outpass set status_by_hod = 'Rejected', status_at_initiater = 'Rejected' where applicationId = ?`,[appId], (err, application, fields) => {
+            if(err) throw err;
+            // console.log(application.length);
+            res.redirect('/hod/requests');
+        });
+    } else if (status === 'Approved') {
+        connection.query(`update outpass set status_by_hod = 'Approved' where applicationId = ?`,[appId], (err, application, fields) => {
+            if(err) throw err;
+            // console.log(application.length);
+            res.redirect('/hod/requests');
+        });
+    }
+});
+
+
+//Rendering CHief Warden Page
+app.get('/chiefWarden', (req, res) => {
+   res.render('wardenLogin');
+});
+
+//warden login
+app.post('/warden/login', wardenroutes.login);
+
+//requests to warden
+app.get('/warden/requests', (req,res) => {
+    connection.query(`select * from outpass where status_by_hod = 'Approved' and status_by_chiefWarden not like 'Approved'`,(err, application, fields) => {
         if(err) throw err;
-        // console.log(application.length);
-        res.redirect('/hod/requests');
+        // console.log(application[0]);
+        res.render('requestsTOWarden', {application});
     });
+});
+
+//handling removal or approval of outPasses
+app.put("/warden/status/:applicationId/requests", (req,res)=> {
+    let appId = JSON.parse(req.params.applicationId);
+    let status = req.body.status;
+    // console.log(req.body.status);
+    if (status === 'Rejected') {
+        connection.query(`update outpass set status_by_chiefWarden = 'Rejected', status_at_initiater = 'Rejected' where applicationId = ?`,[appId], (err, application, fields) => {
+            if(err) throw err;
+            res.redirect('/warden/requests');
+        });
+    } else if (status === 'Approved') {
+        connection.query(`update outpass set status_by_chiefWarden = 'Approved', status_at_initiater = 'Approved' where applicationId = ?`,[appId], (err, application, fields) => {
+            if(err) throw err;
+            // console.log(application.length);
+            res.redirect('/warden/requests');
+        });
+    }
 });
 
 app.listen(port, (req,res) => {

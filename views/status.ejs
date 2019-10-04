@@ -20,7 +20,7 @@
     <div class="row blank"></div>
     <div class="row">
         <div class="col-lg-3 col-md-2 col-sm-2"></div>
-        <div class="col-lg-6 col-md-12 col-sm-8">
+        <div class="col-lg-6 col-md-12 col-sm-8 application_container">
             <% for (const i in application) { %>
                 <div class="card">
                     <div class="row application-container">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12 status">
                             <input class="btn btn-outline-warning" type="button" name="forward" value="<%=
-                                application[i].status
+                                application[i].status_at_initiater
                             %>">
                         </div>
                     </div>

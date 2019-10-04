@@ -22,7 +22,7 @@
         <div class="col-lg-3 col-md-2 col-sm-2"></div>
         <div class="col-lg-6 col-md-12 col-sm-8">
             <% for(var i in application) { %>
-            <form class="card">
+                <form class="card">
                     <div class="row body-container">
                         <div class="col-lg-3 col-md-4 col-sm-4 mode">
                             <label for="other">
@@ -34,7 +34,7 @@
                         <div class="col-lg-6 col-md-4 col-sm-4 desc">
                             <div class="personal_info">
                                 <div class="info">
-<!--                                    use &nbsp;&nbsp; for adding extra blank space-->
+                                    <!--                                    use &nbsp;&nbsp; for adding extra blank space-->
                                     <div class="item">
                                         <h4>From:&nbsp;&nbsp; &nbsp;&nbsp;</h4>
                                         <h5> <%= (application[i].journey_from)%></h5>
@@ -63,19 +63,19 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-4 options">
-<!--                            change the type to submit  from button below to enable the forward button-->
+                            <!--                            change the type to submit  from button below to enable the forward button-->
                             <input class="btn btn-outline-success" type="submit" name="status"
-                                   value="Approved" formaction="/hod/status/<%= application[i].applicationId
+                                   value="Approved" formaction="/warden/status/<%= application[i].applicationId
                             %>/requests?_method=put"
                                    formmethod="post">
                             <input class="btn btn-outline-danger" type="submit" name="status"
-                                   value="Rejected"  formaction="/hod/status/<%= application[i].applicationId
+                                   value="Rejected"  formaction="/warden/status/<%= application[i].applicationId
                             %>/requests?_method=put"
                                    formmethod="post">
                         </div>
                     </div>
-            </form>
-                <% } %>
+                </form>
+            <% } %>
         </div>
         <div class="col-lg-3 col-md-2"></div>
     </div>
