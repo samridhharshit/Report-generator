@@ -69,8 +69,7 @@ app.get('/studentForm', (req,res)=> {
 
 });
 
-//rendering all the applications using studentId from the parameters
-app.get('/studentForm/:studentId', (req, res) => {
+app.get('/:studentId', (req, res) => {
     const studentId = req.params.studentId;
     connection.query(`select * from outpass where studentId = ?`, [studentId], (err, application, field) => {
         console.log(application);
@@ -133,7 +132,7 @@ app.get('/hod/requests', (req,res)=> {
     const hodId = hodroutes.collegeId;
     // console.log(hodroutes.collegeId);
     // console.log(`select * from outpass where hodId = 2 and status != 'Reject'`,[hodId]);
-    connection.query(`select * from outpass where hodId = ? and status not like 'Reject%'`,[hodId], (err, application, fields) => {
+    connection.query(`select * from outpass where hodId = ? and status not like 'Reject'`,[hodId], (err, application, fields) => {
         if(err) throw err;
         // console.log(application[0]);
         res.render('requestsToHod', {application});
@@ -147,7 +146,7 @@ app.put("/hod/:applicationId/requests", (req,res)=> {
     // console.log(req.params.applicationId);
     // const status = "Reject";
     // console.log(`update outpass set status = ? where applicationId = ?`,[status, appId]);
-    connection.query(`update outpass set status = 'Rejected' where applicationId = ?`,[appId], (err, application, fields) => {
+    connection.query(`update outpass set status = 'Reject' where applicationId = ?`,[appId], (err, application, fields) => {
         if(err) throw err;
         // console.log(application.length);
         res.redirect('/hod/requests');
@@ -157,3 +156,4 @@ app.put("/hod/:applicationId/requests", (req,res)=> {
 app.listen(port, (req,res) => {
     console.log(`listening to port ${port}`);
 });
+

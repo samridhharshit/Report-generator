@@ -2,10 +2,43 @@ html,body {
     height: 100%;
     background: url("../images/login-image.jpg");
     overflow-x: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .blank {
-    height: 20vh;
+    height: max-content;
+    margin-bottom: 15vh;
+    color: yellowgreen;
+}
+
+.status, .name, .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFC312;
+    opacity: 0.9;
+}
+
+.logo {
+    color: #398439;
+}
+
+.logo h1 {
+    padding: 5px;
+}
+
+.name h1 {
+    opacity: 1;
+    border: 2px solid black;
+    padding: 5px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+button.dropdown-toggle {
+    background-color: transparent;
 }
 
 .card{

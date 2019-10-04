@@ -119,3 +119,15 @@ margin-left: 4px;
         margin-top: 20px;
     }
 }
+
+
+/*modifying scrollbar*/
+.hod-container::-webkit-scrollbar, .item-container::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+.hod-container::-webkit-scrollbar-thumb, .item-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, .7);
+    border-radius: 5px;
+}

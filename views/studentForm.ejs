@@ -17,7 +17,24 @@
 </head>
 <body
 <div class="item-container">
-    <div class="row blank"></div>
+    <div class="row blank">
+        <div class="col-sm-3 logo">
+            <h1>Manipal University Jaipur</h1>
+        </div>
+        <div class="col-md-6 col-sm status">
+        </div>
+        <div class="col-sm-3 name">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <h1><%= studentName %></h1>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/">home</a>
+                    <a class="dropdown-item" href="/studentForm/<%= studentId %>">status</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col"></div>
         <div class="col-lg-6 col-md-12 col-sm-12">
