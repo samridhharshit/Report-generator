@@ -8,7 +8,7 @@ html,body {
 
 .blank {
     height: max-content;
-    margin-bottom: 15vh;
+    margin-bottom: 7.5vh;
     color: yellowgreen;
 }
 
@@ -115,12 +115,12 @@ button[type=submit] {
 }
 
 /*modifying scrollbar*/
-.hod-container::-webkit-scrollbar, .item-container::-webkit-scrollbar {
+.item-container::-webkit-scrollbar {
     width: 0.5em;
     height: 0.5em;
 }
 
-.hod-container::-webkit-scrollbar-thumb, .item-container::-webkit-scrollbar-thumb {
+.item-container::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, .7);
     border-radius: 5px;
 }

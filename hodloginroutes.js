@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'outpass'
+    database: 'EventsReport'
 });
 
 connection.connect(function (err) {
@@ -24,14 +24,12 @@ exports.register = function (req, res) {
     const today = new Date();
     const hod = {
         "name": req.body.username,
-        "branch": req.body.branch,
-        "course": req.body.course,
         "phoneNumber": req.body.mobileNo,
-        "collegeId": req.body.registrationNo,
+        "TeacherId": req.body.registrationNo,
         "email": req.body.email,
         "password": req.body.password
     };
-    connection.query('INSERT INTO hod SET ?', hod, function (error, hod, fields) {
+    connection.query('INSERT INTO Teacher SET ?', hod, function (error, hod, fields) {
         if (error) {
             res.send({
                 "code": 400,
@@ -40,10 +38,7 @@ exports.register = function (req, res) {
             throw error;
         } else {
             console.log('The solution is: ', hod);
-            res.send({
-                "code": 200,
-                "success": "user registered successfully"
-            });
+            res.redirect('/');
         }
     });
 };
@@ -54,17 +49,17 @@ exports.login = function(req,res){
     // console.log(regNo);
     const mobileNo = req.body.mobileNo;
     // console.log(mobileNo);
-    connection.query('SELECT * FROM hod WHERE collegeId = ?',[clgId], function (error, hod, fields) {
+    connection.query('SELECT * FROM Teacher WHERE TeacherId = ?',[clgId], function (error, Teacher, fields) {
         if (error) {
             throw error;
         }else{
             // console.log('The solution is: ', results[0].phoneNumber);
-            if(hod.length >0){
+            if(Teacher.length >0){
                 // console.log(typeof (results[0].phoneNumber));
                 // console.log(typeof (JSON.parse(mobileNo)));
-                if(hod[0].phoneNumber === JSON.parse(mobileNo)){
-                    exports.collegeId = hod[0].collegeId;
-                    res.redirect('/hod/requests');
+                if(Teacher[0].phoneNumber === JSON.parse(mobileNo)){
+                    exports.collegeId = Teacher[0].TeacherId;
+                    res.redirect('/hod/Options');
                     // res.send('loggedin successfully');
                 }
                 else{

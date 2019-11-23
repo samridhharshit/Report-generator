@@ -26,52 +26,40 @@
                     <div class="row body-container">
                         <div class="col-lg-3 col-md-4 col-sm-4 mode">
                             <label for="other">
-                                <span><i class="fa fa-<%= application[i].journey_mode %>
-                                fa-5x"></i></span>
-                                <h1><%= application[i].journey_mode %></h1>
+                                <span><i class="fa fa-folder fa-3x"></i></span>
+                                <h6>document for brochure will go here!</h6>
                             </label>
                         </div>
-                        <div class="col-lg-6 col-md-4 col-sm-4 desc">
+                        <div class="col-lg-9 col-sm-7 desc">
                             <div class="personal_info">
                                 <div class="info">
-<!--                                    use &nbsp;&nbsp; for adding extra blank space-->
-                                    <div class="item">
-                                        <h4>From:&nbsp;&nbsp; &nbsp;&nbsp;</h4>
-                                        <h5> <%= (application[i].journey_from)%></h5>
-                                    </div>
-                                    <div class="item">
-                                        <h4>To:&nbsp;&nbsp; &nbsp;&nbsp;</h4>
-                                        <h5> <%= application[i].journey_to %></h5>
-                                    </div>
                                     <div class="item">
                                         <h4>Name:&nbsp;&nbsp; </h4>
-                                        <h5> <%= application[i].studentName %></h5>
+                                        <h5> <%= application[i].name %></h5>
                                     </div>
                                     <div class="item">
-                                        <h4>Block:&nbsp;&nbsp; </h4>
-                                        <h5> <%= application[i].studentBlock %></h5>
+                                        <h4>Type:&nbsp;&nbsp; </h4>
+                                        <h5> <%= application[i].type %></h5>
                                     </div>
                                     <div class="item">
-                                        <h4>RoomNo.: &nbsp;&nbsp; </h4>
-                                        <h5> <%= application[i].studentRoomNo %></h5>
+                                        <h4>Co-ordinator.: &nbsp;&nbsp; </h4>
+                                        <h5> <%= application[i].coordinator %></h5>
                                     </div>
                                     <div class="item">
-                                        <h4>Contact:&nbsp;&nbsp; </h4>
-                                        <h5> <%= application[i].studentContact %></h5>
+                                        <h4>Date of Event:&nbsp;&nbsp; &nbsp;&nbsp;</h4>
+                                        <h5> <%= (application[i].dateofevent)%></h5>
                                     </div>
+                                    <div class="item">
+                                        <h4>Venue:&nbsp;&nbsp; </h4>
+                                        <h5> <%= application[i].venue %></h5>
+                                    </div>
+                                    <div class="item">
+                                        <h4>Event Details:&nbsp;&nbsp; </h4>
+                                        <h5> <%= application[i].eventdetails %></h5>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-4 options">
-<!--                            change the type to submit  from button below to enable the forward button-->
-                            <input class="btn btn-outline-success" type="submit" name="status"
-                                   value="Approved" formaction="/hod/status/<%= application[i].applicationId
-                            %>/requests?_method=put"
-                                   formmethod="post">
-                            <input class="btn btn-outline-danger" type="submit" name="status"
-                                   value="Rejected"  formaction="/hod/status/<%= application[i].applicationId
-                            %>/requests?_method=put"
-                                   formmethod="post">
                         </div>
                     </div>
             </form>

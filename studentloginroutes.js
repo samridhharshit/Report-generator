@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'outpass'
+    database: 'EventsReport'
 });
 
 connection.connect(function (err) {
@@ -42,7 +42,7 @@ exports.register = function (req, res) {
             throw error;
         } else {
             console.log('The solution is: ', student);
-            res.redirect('/studentForm');
+            res.redirect('/PreEventOrPostEvent');
         }
     });
 };
@@ -69,7 +69,7 @@ exports.login = function(req,res){
                         exports.contact = results[0].phoneNumber;
                         exports.roomNo = results[0].roomNo;
                         // console.log(results[0].registrationNo);
-                        res.redirect('/studentForm');
+                        res.redirect('/PreEventOrPostEvent');
                 }
                 else{
                     res.send({
