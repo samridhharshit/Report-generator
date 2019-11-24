@@ -1,6 +1,7 @@
 # Report-generator
 
 Steps for getting started:
+
 1)copy the URL from the button on the right side named "clone or download"
 
 2)redirect the terminal to the directory where you want to run the application
