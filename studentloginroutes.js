@@ -1,15 +1,6 @@
-//-----------/usr/bin/mysql -u root -p---------for opening mysql server locally
+const databaseConnection = require('./databaseConnection.js');
 
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'EventsReport'
-});
-
-connection.connect(function (err) {
+databaseConnection.connection.connect(function (err) {
     if (!err) {
         console.log("Database is connected ... studentlogin page");
     } else {
@@ -33,7 +24,7 @@ exports.register = function (req, res) {
         "email": req.body.email,
         "password": req.body.password
     };
-    connection.query('INSERT INTO student SET ?', student, function (error, student, fields) {
+    databaseConnection.connection.query('INSERT INTO student SET ?', student, function (error, student, fields) {
         if (error) {
             res.send({
                 "code": 400,
@@ -53,7 +44,7 @@ exports.login = function(req,res){
     // console.log(regNo);
     const mobileNo = req.body.mobileNo;
     // console.log(mobileNo);
-    connection.query('SELECT * FROM student WHERE registrationNo = ?',[regNo], function (error, results, fields) {
+    databaseConnection.connection.query('SELECT * FROM student WHERE registrationNo = ?',[regNo], function (error, results, fields) {
         if (error) {
             throw error;
         }else{

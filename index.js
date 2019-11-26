@@ -21,19 +21,9 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('static'));
 
-//SQL connection
-//-----------/usr/bin/mysql -u root -p---------for opening mysql server locally
+const databaseConnection = require('./databaseConnection.js');
 
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'EventsReport'
-});
-
-connection.connect(function (err) {
+databaseConnection.connection.connect(function (err) {
     if (!err) {
         console.log("Database is connected ... main page");
     } else {
@@ -67,7 +57,7 @@ app.get('/preeventstudentForm', (req,res)=> {
     let studentId = studentroutes.regNo;
 
     //accessing the branch of student regNo render the all hods of the respective branch and show it in the template
-    connection.query(`select * from student where registrationNo = ?`, [studentId], (err, student, field)=> {
+    databaseConnection.connection.query(`select * from student where registrationNo = ?`, [studentId], (err, student, field)=> {
         if (err) throw err;
         let studentName = studentroutes.name;
         console.log(studentName);
@@ -89,7 +79,7 @@ app.post('/preeventstudentForm', (req,res)=> {
         studentId : studentroutes.regNo
     };
 
-    connection.query(`insert into PreEventForm set ?`, form, (err, result, fields) => {
+    databaseConnection.connection.query(`insert into PreEventForm set ?`, form, (err, result, fields) => {
         if(err) throw err;
         console.log(result);
     });
@@ -102,7 +92,7 @@ app.get('/posteventForm', (req,res)=> {
     let studentId = studentroutes.regNo;
 
     //accessing the branch of student regNo render the all hods of the respective branch and show it in the template
-    connection.query(`select * from student where registrationNo = ?`, [studentId], (err, student, field)=> {
+    databaseConnection.connection.query(`select * from student where registrationNo = ?`, [studentId], (err, student, field)=> {
         if (err) throw err;
         let studentName = studentroutes.name;
         console.log(studentName);
@@ -123,7 +113,7 @@ app.post('/posteventstudentForm', (req,res)=> {
         studentId : studentroutes.regNo
     };
 
-    connection.query(`insert into PostEventForm set ?`, form, (err, result, fields) => {
+    databaseConnection.connection.query(`insert into PostEventForm set ?`, form, (err, result, fields) => {
         if(err) throw err;
         console.log(result);
     });
@@ -149,7 +139,7 @@ app.get('/hod/Options', (req, res) => {
 
 //showing the pre event status to the teacher
 app.get('/preeventstatus', (req,res)=> {
-    connection.query(`select * from PreEventForm`, (err, application, fields) => {
+    databaseConnection.connection.query(`select * from PreEventForm`, (err, application, fields) => {
         if(err) throw err;
         // console.log(application[0]);
         res.render('PreEventStatus', {application});
@@ -158,7 +148,7 @@ app.get('/preeventstatus', (req,res)=> {
 
 //showing the post event status to the teacher
 app.get('/posteventstatus', (req,res)=> {
-    connection.query(`select * from PostEventForm`, (err, application, fields) => {
+    databaseConnection.connection.query(`select * from PostEventForm`, (err, application, fields) => {
         if(err) throw err;
         // console.log(application[0]);
         res.render('PostEventStatus', {application});
